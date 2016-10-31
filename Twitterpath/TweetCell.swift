@@ -59,7 +59,7 @@ class TweetCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        profileImageView.layer.cornerRadius = 4
+        profileImageView.layer.cornerRadius = 6
         profileImageView.clipsToBounds = true
     }
 }
