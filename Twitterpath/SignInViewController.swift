@@ -15,31 +15,15 @@ class SignInViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        navigationController?.setNavigationBarHidden(true, animated: false)
-        
-        let isStoredAuthValid = false
-        loginButton.isEnabled = !isStoredAuthValid
     }
     
     @IBAction func loginPressed(_ sender: Any) {
-        TwitterAPI.twitterClient.deauthorize()
-        
         SVProgressHUD.show()
-        TwitterAPI.fetchRequestToken(success: { (requestToken: BDBOAuth1Credential?) in
-            if let oauthToken = requestToken?.token {
-                SVProgressHUD.dismiss()
-                let url = URL(string: "https://api.twitter.com/oauth/authorize?oauth_token=\(oauthToken)")!
-                UIApplication.shared.open(url, options: [:], completionHandler: nil)
-            } else {
-                SVProgressHUD.showError(withStatus: NSLocalizedString("Did not receive a token from Twitter, please try again", comment: ""))
-            }
-        }, failure: { (error: Error?) in
-            if let error = error {
-                SVProgressHUD.showError(withStatus: error.localizedDescription)
-            } else {
-                SVProgressHUD.showError(withStatus: NSLocalizedString("Unknown error occurred, please try again.", comment: ""))
-            }
+        TwitterAPI.sharedInstance.login(success: { [weak self] in
+            SVProgressHUD.showSuccess(withStatus: "Logged in!")
+            self?.performSegue(withIdentifier: "loginSegue", sender: nil)
+        }, failure: { (error: Error) in
+            SVProgressHUD.showError(withStatus: error.localizedDescription)
         })
     }
 }

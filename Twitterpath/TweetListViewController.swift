@@ -7,19 +7,35 @@
 //
 
 import UIKit
+import SVProgressHUD
 
 class TweetListViewController: UIViewController {
+    @IBOutlet var tweetsTableView: UITableView!
+    
+    var tweets: [TwitterTweet] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        TwitterAPI.sharedInstance.homeTimeline(success: { (tweets: [TwitterTweet]) in
+            self.tweets = tweets
+        }, failure: { (error: Error) in
+            SVProgressHUD.showError(withStatus: error.localizedDescription)
+        })
+        
+//        TwitterAPI.verifyCredentials(success: { (user: TwitterUser) in
+//            TwitterUser.currentUser = user
+//        }, failure: { (error: Error) in
+//            SVProgressHUD.showError(withStatus: error.localizedDescription)
+//        })
+    }
+    
+    @IBAction func composeTweet(_ sender: UIBarButtonItem) {
+    
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    @IBAction func signOut(_ sender: UIBarButtonItem) {
+        TwitterAPI.sharedInstance.logout()
     }
-
-
 }
 

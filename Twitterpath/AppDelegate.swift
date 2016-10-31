@@ -17,7 +17,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        // Ensure that BDBO was able to store the auth token in the keychain AND that there is a stored current user.
+        if TwitterAPI.isAuthorized && TwitterUser.currentUser != nil {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let vc = storyboard.instantiateViewController(withIdentifier: "tweetsNavigationController")
+            window?.rootViewController = vc
+        }
+        
+        NotificationCenter.default.addObserver(forName: TwitterAPI.logoutNotification, object: nil, queue: OperationQueue.main, using: { (notification: Notification) in
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let vc = storyboard.instantiateInitialViewController()
+            self.window?.rootViewController = vc
+        })
+        
         return true
     }
     
@@ -25,33 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let scheme = url.scheme, let query = url.query, scheme.hasPrefix("twitterpath") {
             let requestToken = BDBOAuth1Credential(queryString: query)!
             
-            SVProgressHUD.show()
-            TwitterAPI.fetchAccessToken(forRequestToken: requestToken, success: { (accessToken: BDBOAuth1Credential?) in
-                if let token = accessToken?.token {
-                    SVProgressHUD.dismiss()
-                    TwitterAPI.verifyCredentials(success: { (task: URLSessionDataTask, response: Any?) in
-                        // wat
-                        TwitterAPI.fetch(twitterDataType: .userTimeline, success: { (task: URLSessionDataTask, response: Any?) in
-                            let tweets = response as! [NSDictionary]
-                            for tweet in tweets {
-                                print("\(tweet["text"]!)")
-                            }
-                        }, failure: { (task: URLSessionDataTask?, error: Error) in
-                            print("error fetching timeline")
-                        })
-                    }, failure: { (task: URLSessionDataTask?, error: Error) in
-                        print("error verifying credentials")
-                    })
-                } else {
-                    SVProgressHUD.showError(withStatus: NSLocalizedString("Did not receive a token from Twitter, please try again", comment: ""))
-                }
-            }, failure: { (error: Error?) in
-                if let error = error {
-                    SVProgressHUD.showError(withStatus: error.localizedDescription)
-                } else {
-                    SVProgressHUD.showError(withStatus: NSLocalizedString("Unknown error occurred, please try again.", comment: ""))
-                }
-            })
+            TwitterAPI.sharedInstance.continueLoginFromTwitter(with: requestToken)
             
             return true
         }
