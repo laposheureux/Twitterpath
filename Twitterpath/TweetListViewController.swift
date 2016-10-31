@@ -16,6 +16,10 @@ class TweetListViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refreshControlChanged(refreshControl:)), for: .valueChanged)
+        tweetsTableView.insertSubview(refreshControl, at: 0)
         
         navigationController?.navigationBar.topItem?.title = "Home"
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
@@ -24,21 +28,32 @@ class TweetListViewController: UIViewController {
         tweetsTableView.estimatedRowHeight = 90
         tweetsTableView.rowHeight = UITableViewAutomaticDimension
         
-        SVProgressHUD.show()
-        
-        TwitterAPI.sharedInstance.homeTimeline(success: { [weak self] (tweets: [TwitterTweet]) in
-            SVProgressHUD.dismiss()
-            self?.tweets = tweets
-            self?.tweetsTableView.reloadData()
-        }, failure: { (error: Error) in
-            SVProgressHUD.showError(withStatus: error.localizedDescription)
-        })
-        
+        refreshTimeline(completion: nil)
+
 //        TwitterAPI.verifyCredentials(success: { (user: TwitterUser) in
 //            TwitterUser.currentUser = user
 //        }, failure: { (error: Error) in
 //            SVProgressHUD.showError(withStatus: error.localizedDescription)
 //        })
+    }
+
+    func refreshControlChanged(refreshControl: UIRefreshControl) {
+        refreshTimeline { 
+            refreshControl.endRefreshing()
+        }
+    }
+
+    func refreshTimeline(completion: (() -> Void)?) {
+        SVProgressHUD.show()
+        TwitterAPI.sharedInstance.homeTimeline(success: { [weak self] (tweets: [TwitterTweet]) in
+            SVProgressHUD.dismiss()
+            self?.tweets = tweets
+            self?.tweetsTableView.reloadData()
+            completion?()
+        }, failure: { (error: Error) in
+            SVProgressHUD.showError(withStatus: error.localizedDescription)
+            completion?()
+        })
     }
     
     @IBAction func composeTweet(_ sender: UIBarButtonItem) {

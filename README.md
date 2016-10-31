@@ -18,7 +18,7 @@ Time spent: 15 hours
 * [x] Required: User can view last 20 tweets from their home timeline
 * [x] Required: Signed in user will be persisted across restarts
 * [x] Required: In the home timeline, user can view tweets with the user profile picture, username, tweet text, and timestamp laid out with Auto Layout.
-* [ ] Required: User can pull to refresh
+* [x] Required: User can pull to refresh
 * [ ] Required: User can compose a new tweet by tapping on a compose button
 * [ ] Required: User can tap on a tweet to view it, with controls to retweet, favorite, and reply
 * [ ] Optional: Countdown for the tweet character limit
