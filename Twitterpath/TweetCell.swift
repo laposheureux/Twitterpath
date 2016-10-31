@@ -55,4 +55,11 @@ class TweetCell: UITableViewCell {
     func likeError() {
         
     }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        profileImageView.layer.cornerRadius = 4
+        profileImageView.clipsToBounds = true
+    }
 }

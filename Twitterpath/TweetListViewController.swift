@@ -17,11 +17,17 @@ class TweetListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationController?.navigationBar.topItem?.title = "Home"
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+        
         tweetsTableView.dataSource = self
         tweetsTableView.estimatedRowHeight = 90
         tweetsTableView.rowHeight = UITableViewAutomaticDimension
         
+        SVProgressHUD.show()
+        
         TwitterAPI.sharedInstance.homeTimeline(success: { [weak self] (tweets: [TwitterTweet]) in
+            SVProgressHUD.dismiss()
             self?.tweets = tweets
             self?.tweetsTableView.reloadData()
         }, failure: { (error: Error) in
