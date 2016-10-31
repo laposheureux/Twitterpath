@@ -17,8 +17,13 @@ class TweetListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        TwitterAPI.sharedInstance.homeTimeline(success: { (tweets: [TwitterTweet]) in
-            self.tweets = tweets
+        tweetsTableView.dataSource = self
+        tweetsTableView.estimatedRowHeight = 90
+        tweetsTableView.rowHeight = UITableViewAutomaticDimension
+        
+        TwitterAPI.sharedInstance.homeTimeline(success: { [weak self] (tweets: [TwitterTweet]) in
+            self?.tweets = tweets
+            self?.tweetsTableView.reloadData()
         }, failure: { (error: Error) in
             SVProgressHUD.showError(withStatus: error.localizedDescription)
         })
@@ -39,3 +44,20 @@ class TweetListViewController: UIViewController {
     }
 }
 
+extension TweetListViewController: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return tweets.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "tweetCell") as! TweetCell
+        
+        cell.twitterTweet = tweets[indexPath.row]
+        
+        return cell
+    }
+}

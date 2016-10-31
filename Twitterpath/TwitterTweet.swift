@@ -13,6 +13,7 @@ class TwitterTweet {
     var retweetCount: Int = 0
     var favoritesCount: Int = 0
     var timestamp: Date?
+    var user: TwitterUser?
     
     init(dictionary: NSDictionary) {
         text = dictionary["text"] as? String
@@ -23,6 +24,10 @@ class TwitterTweet {
             let formatter = DateFormatter()
             formatter.dateFormat = "EEE MMM d HH:mm:ss Z y"
             timestamp = formatter.date(from: timestampString)
+        }
+        
+        if let userDictionary = dictionary["user"] as? NSDictionary {
+            user = TwitterUser(dictionary: userDictionary)
         }
     }
     
@@ -39,6 +44,6 @@ class TwitterTweet {
 
 extension TwitterTweet: CustomStringConvertible {
     var description: String {
-        return "text: \(text), retweets: \(retweetCount), favorites: \(favoritesCount), date: \(timestamp)"
+        return "text: \(text), retweets: \(retweetCount), favorites: \(favoritesCount), date: \(timestamp), user: \(user)"
     }
 }
