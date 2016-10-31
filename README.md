@@ -1,32 +1,34 @@
 # Twitterpath
 
-This is an application that provides a filterable interface to the Yelp search API
+This is an application that provides a lightweight interface to Twitter for one user.
 
 ## Description
 
-This app will allow you to choose deals, distance, sort, and category filters and display the results from Yelp laid out entirely with autolayout
+This app will authenticate with the Twitter API, display your timeline, allow you to favorite and retweet and reply from it and to compose tweets.
 
 ## Codepath Details
 
-Time spent: 10 hours
+Time spent: 15 hours
 
 ## User Stories
 
 #### Search results page
 
-* [x] Required: Table rows are dynamic height
-* [x] Required: Custom cells use auto layout and manage all data scenarios and device rotation
-* [x] Required: Search bar is in the navigation bar
+* [x] Required: User can sign in using OAuth login flow
+* [x] Required: User can view last 20 tweets from their home timeline
+* [x] Required: Signed in user will be persisted across restarts
+* [x] Required: In the home timeline, user can view tweets with the user profile picture, username, tweet text, and timestamp laid out with Auto Layout.
+* [ ] Required: User can pull to refresh
+* [ ] Required: User can compose a new tweet by tapping on a compose button
+* [ ] Required: User can tap on a tweet to view it, with controls to retweet, favorite, and reply
+* [ ] Optional: Countdown for the tweet character limit
+* [ ] Optional: After creating a tweet, it should be visible immediately in the timeline
+* [ ] Optional: Retweeting and favoriting should increment the retweet and favorite count
+* [ ] Optional: Replies should be prefixed with the username and the reply_id should be set when posting the tweet
+* [ ] Optional: User can load more tweets once they reach the bottom of the feed using infinte loading.
+* [ ] Extra: User can also tap on reply/retweet/favorite from their home timeline
 
-#### Filter page
 
-* [x] Required: Include filters category, sort, distance, deals
-* [x] Required: Filters table organized into sections
-* [x] Required: Search button dismisses filters page and triggers a search with new settings if a query is present in the search bar
-* [x] Extra: Maintain filter state for more than one search and pass it back to the filters view
+## GIF Walkthrough
 
-## Walkthrough
-
-1. [iPhone 5s Simulator] Shows multiple searches and filters and autolayout constraints at work.
-
-  ![Yelp](Yelp.gif)
+  ![](.gif)
