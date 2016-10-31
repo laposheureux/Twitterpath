@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		0ECEB9D1CA22DE52F2C30CB9 /* Pods_Twitterpath.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4E1C9090CE8ACB0B373951B /* Pods_Twitterpath.framework */; };
 		9322DDA81DC6C1F5009D1B8F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9322DDA71DC6C1F5009D1B8F /* AppDelegate.swift */; };
-		9322DDAA1DC6C1F5009D1B8F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9322DDA91DC6C1F5009D1B8F /* ViewController.swift */; };
+		9322DDAA1DC6C1F5009D1B8F /* TweetListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9322DDA91DC6C1F5009D1B8F /* TweetListViewController.swift */; };
 		9322DDAD1DC6C1F5009D1B8F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9322DDAB1DC6C1F5009D1B8F /* Main.storyboard */; };
 		9322DDAF1DC6C1F5009D1B8F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9322DDAE1DC6C1F5009D1B8F /* Assets.xcassets */; };
 		9322DDB21DC6C1F5009D1B8F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9322DDB01DC6C1F5009D1B8F /* LaunchScreen.storyboard */; };
@@ -20,7 +20,7 @@
 		4F5F08565D3D47C5585A27F5 /* Pods-Twitterpath.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Twitterpath.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Twitterpath/Pods-Twitterpath.debug.xcconfig"; sourceTree = "<group>"; };
 		9322DDA41DC6C1F5009D1B8F /* Twitterpath.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Twitterpath.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9322DDA71DC6C1F5009D1B8F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		9322DDA91DC6C1F5009D1B8F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		9322DDA91DC6C1F5009D1B8F /* TweetListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetListViewController.swift; sourceTree = "<group>"; };
 		9322DDAC1DC6C1F5009D1B8F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9322DDAE1DC6C1F5009D1B8F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9322DDB11DC6C1F5009D1B8F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -79,7 +79,7 @@
 			isa = PBXGroup;
 			children = (
 				9322DDA71DC6C1F5009D1B8F /* AppDelegate.swift */,
-				9322DDA91DC6C1F5009D1B8F /* ViewController.swift */,
+				9322DDA91DC6C1F5009D1B8F /* TweetListViewController.swift */,
 				9322DDAB1DC6C1F5009D1B8F /* Main.storyboard */,
 				9322DDAE1DC6C1F5009D1B8F /* Assets.xcassets */,
 				9322DDB01DC6C1F5009D1B8F /* LaunchScreen.storyboard */,
@@ -118,7 +118,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0800;
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = "Aaron L'Heureux";
 				TargetAttributes = {
 					9322DDA31DC6C1F5009D1B8F = {
@@ -211,7 +211,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9322DDAA1DC6C1F5009D1B8F /* ViewController.swift in Sources */,
+				9322DDAA1DC6C1F5009D1B8F /* TweetListViewController.swift in Sources */,
 				9322DDA81DC6C1F5009D1B8F /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -256,6 +256,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -305,6 +306,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
