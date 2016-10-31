@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import BDBOAuth1Manager
+import SVProgressHUD
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -17,6 +19,44 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         return true
+    }
+    
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        if let scheme = url.scheme, let query = url.query, scheme.hasPrefix("twitterpath") {
+            let requestToken = BDBOAuth1Credential(queryString: query)!
+            
+            SVProgressHUD.show()
+            TwitterAPI.fetchAccessToken(forRequestToken: requestToken, success: { (accessToken: BDBOAuth1Credential?) in
+                if let token = accessToken?.token {
+                    SVProgressHUD.dismiss()
+                    TwitterAPI.verifyCredentials(success: { (task: URLSessionDataTask, response: Any?) in
+                        // wat
+                        TwitterAPI.fetch(twitterDataType: .userTimeline, success: { (task: URLSessionDataTask, response: Any?) in
+                            let tweets = response as! [NSDictionary]
+                            for tweet in tweets {
+                                print("\(tweet["text"]!)")
+                            }
+                        }, failure: { (task: URLSessionDataTask?, error: Error) in
+                            print("error fetching timeline")
+                        })
+                    }, failure: { (task: URLSessionDataTask?, error: Error) in
+                        print("error verifying credentials")
+                    })
+                } else {
+                    SVProgressHUD.showError(withStatus: NSLocalizedString("Did not receive a token from Twitter, please try again", comment: ""))
+                }
+            }, failure: { (error: Error?) in
+                if let error = error {
+                    SVProgressHUD.showError(withStatus: error.localizedDescription)
+                } else {
+                    SVProgressHUD.showError(withStatus: NSLocalizedString("Unknown error occurred, please try again.", comment: ""))
+                }
+            })
+            
+            return true
+        }
+        
+        return false
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
