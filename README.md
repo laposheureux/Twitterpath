@@ -33,3 +33,6 @@ Time spent: 17 hours
 ## GIF Walkthrough
 
   ![twitterpath](twitterpath.gif)
+
+Verification of the last state of the app can be seen here: https://twitter.com/aarontesterson1 - example of replies here: https://twitter.com/aarontesterson1/status/793292220530950145
+
