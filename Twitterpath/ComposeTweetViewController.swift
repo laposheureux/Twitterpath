@@ -18,7 +18,8 @@ class ComposeTweetViewController: UIViewController {
     @IBOutlet var charactersLeft: UIBarButtonItem!
 
     let characterCount: Int = 140
-    weak var delegate: TweetInjectable?
+    var replyingToTweet: TwitterTweet?
+    weak var delegate: TweetUpdateable?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,8 +36,13 @@ class ComposeTweetViewController: UIViewController {
             }
         }
 
-        textView.text = ""
-        charactersLeft.title = "140"
+        // Replies are ignored if they do not start with the @mention of the user being replied to.
+        if let replyUsername = replyingToTweet?.user?.screenname {
+            textView.text = "@\(replyUsername) "
+        } else {
+            textView.text = ""
+        }
+        textViewDidChange(textView)
         textView.becomeFirstResponder()
     }
 
@@ -46,7 +52,7 @@ class ComposeTweetViewController: UIViewController {
 
             SVProgressHUD.show()
 
-            TwitterAPI.sharedInstance.submitTweet(tweet: tweet, success: { [weak self] in
+            TwitterAPI.sharedInstance.submitTweet(tweet: tweet, replyingToTweet: replyingToTweet, success: { [weak self] in
                 SVProgressHUD.dismiss()
                 self?.delegate?.newTweet(tweet: tweet)
                 self?.navigationController?.popViewController(animated: true)

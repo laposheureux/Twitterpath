@@ -15,7 +15,11 @@ enum TwitterFetchDataType: String {
 }
 
 enum TwitterPostDataType: String {
+    case favorite = "1.1/favorites/create.json"
+    case retweet = "1.1/statuses/retweet/:id:.json"
     case tweet = "1.1/statuses/update.json"
+    case unFavorite = "1.1/favorites/destroy.json"
+    case unRetweet = "1.1/statuses/unretweet/:id:.json"
 }
 
 enum TwitterAPIError: Error {
@@ -51,12 +55,12 @@ class TwitterAPI {
     
     // MARK: - Helper function wrapper around `get` and `post`
     
-    private func fetch(twitterFetchDataType: TwitterFetchDataType, success: @escaping ((URLSessionDataTask, Any?) -> Void), failure: @escaping ((URLSessionDataTask?, Error) -> Void)) {
-        twitterClient.get(twitterFetchDataType.rawValue, parameters: nil, progress: nil, success: success, failure: failure)
+    private func fetch(twitterFetchDataPath: String, success: @escaping ((URLSessionDataTask, Any?) -> Void), failure: @escaping ((URLSessionDataTask?, Error) -> Void)) {
+        twitterClient.get(twitterFetchDataPath, parameters: nil, progress: nil, success: success, failure: failure)
     }
 
-    private func post(twitterPostDataType: TwitterPostDataType, parameters: Any?, success: @escaping ((URLSessionDataTask, Any?) -> Void), failure: @escaping ((URLSessionDataTask?, Error) -> Void)) {
-        twitterClient.post(twitterPostDataType.rawValue, parameters: parameters, progress: nil, success: success, failure: failure)
+    private func post(twitterPostDataPath: String, parameters: Any?, success: @escaping ((URLSessionDataTask, Any?) -> Void), failure: @escaping ((URLSessionDataTask?, Error) -> Void)) {
+        twitterClient.post(twitterPostDataPath, parameters: parameters, progress: nil, success: success, failure: failure)
     }
     
     
@@ -126,7 +130,7 @@ class TwitterAPI {
     
     // Helper function for accessing credentials semantically
     func currentAccount(success: @escaping ((TwitterUser) -> Void), failure: @escaping ((Error) -> Void)) {
-        fetch(twitterFetchDataType: .userData, success: { (task: URLSessionDataTask, response: Any?) -> Void in
+        fetch(twitterFetchDataPath: TwitterFetchDataType.userData.rawValue, success: { (task: URLSessionDataTask, response: Any?) -> Void in
             if let userDictionary = response as? NSDictionary {
                 success(TwitterUser(dictionary: userDictionary))
             } else {
@@ -141,7 +145,7 @@ class TwitterAPI {
     // MARK: - User-contextual Information
     
     func homeTimeline(success: @escaping (([TwitterTweet]) -> Void), failure: @escaping ((Error) -> Void)) {
-        fetch(twitterFetchDataType: .homeTimeline, success: { (task: URLSessionDataTask, response: Any?) in
+        fetch(twitterFetchDataPath: TwitterFetchDataType.homeTimeline.rawValue, success: { (task: URLSessionDataTask, response: Any?) in
             if let tweetsDictionary = response as? [NSDictionary] {
                 success(TwitterTweet.tweetsWithArray(dictionaries: tweetsDictionary))
             } else {
@@ -155,17 +159,68 @@ class TwitterAPI {
 
     // MARK: - User actions
 
-    func submitTweet(tweet: TwitterTweet, success: (() -> Void)?, failure: ((Error) -> Void)?) {
+    func submitTweet(tweet: TwitterTweet, replyingToTweet: TwitterTweet?, success: (() -> Void)?, failure: ((Error) -> Void)?) {
         var parameters: [String: String] = [:]
         if let status = tweet.text {
             parameters["status"] = status
-            post(twitterPostDataType: .tweet, parameters: parameters, success: { (task: URLSessionDataTask, response: Any?) in
+            if let replyingToTweet = replyingToTweet {
+                parameters["in_reply_to_status_id"] = replyingToTweet.idString
+            }
+            post(twitterPostDataPath: TwitterPostDataType.tweet.rawValue, parameters: parameters, success: { (task: URLSessionDataTask, response: Any?) in
                 success?()
             }, failure: { (task: URLSessionDataTask?, error: Error) in
                 failure?(error)
             })
         } else {
             failure?(TwitterAPIError.emptyTweet)
+        }
+    }
+
+    func retweet(tweetID: String, success: ((Int) -> Void)?, failure: ((Error) -> Void)?) {
+        let substitutedPath = TwitterPostDataType.retweet.rawValue.replacingOccurrences(of: ":id:", with: tweetID)
+
+        post(twitterPostDataPath: substitutedPath, parameters: ["id": tweetID], success: { (task: URLSessionDataTask, response: Any?) in
+            if let responseDictionary = response as? NSDictionary, let retweetCount = responseDictionary["retweet_count"] as? Int {
+                success?(retweetCount)
+            }
+            success?(0)
+        }) { (task: URLSessionDataTask?, error: Error) in
+            failure?(error)
+        }
+    }
+
+    func unretweet(tweetID: String, success: ((Int) -> Void)?, failure: ((Error) -> Void)?) {
+        let substitutedPath = TwitterPostDataType.unRetweet.rawValue.replacingOccurrences(of: ":id:", with: tweetID)
+
+        post(twitterPostDataPath: substitutedPath, parameters: ["id": tweetID], success: { (task: URLSessionDataTask, response: Any?) in
+            if let responseDictionary = response as? NSDictionary, let retweetCount = responseDictionary["retweet_count"] as? Int {
+                success?(retweetCount)
+            }
+            success?(0)
+        }) { (task: URLSessionDataTask?, error: Error) in
+            failure?(error)
+        }
+    }
+
+    func favorite(tweetID: String, success: ((Int) -> Void)?, failure: ((Error) -> Void)?) {
+        post(twitterPostDataPath: TwitterPostDataType.favorite.rawValue, parameters: ["id": tweetID], success: { (task: URLSessionDataTask, response: Any?) in
+            if let responseDictionary = response as? NSDictionary, let retweetCount = responseDictionary["favorite_count"] as? Int {
+                success?(retweetCount)
+            }
+            success?(0)
+        }) { (task: URLSessionDataTask?, error: Error) in
+            failure?(error)
+        }
+    }
+
+    func unfavorite(tweetID: String, success: ((Int) -> Void)?, failure: ((Error) -> Void)?) {
+        post(twitterPostDataPath: TwitterPostDataType.unFavorite.rawValue, parameters: ["id": tweetID], success: { (task: URLSessionDataTask, response: Any?) in
+            if let responseDictionary = response as? NSDictionary, let retweetCount = responseDictionary["favorite_count"] as? Int {
+                success?(retweetCount)
+            }
+            success?(0)
+        }) { (task: URLSessionDataTask?, error: Error) in
+            failure?(error)
         }
     }
 }
