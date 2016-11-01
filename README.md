@@ -23,7 +23,7 @@ Time spent: 17 hours
 * [x] Required: User can tap on a tweet to view it, with controls to retweet, favorite, and reply
 * [x] Optional: Countdown for the tweet character limit
 * [x] Optional: After creating a tweet, it should be visible immediately in the timeline
-* [Mostly] Optional: Retweeting and favoriting should increment the retweet and favorite count
+* [x] / [ Mostly ] Optional: Retweeting and favoriting should increment the retweet and favorite count
   * If retweeting/favoriting from the list and then the user pushes to single view, the count is wrong.
 * [x] Optional: Replies should be prefixed with the username and the reply_id should be set when posting the tweet
 * [ ] Optional: User can load more tweets once they reach the bottom of the feed using infinte loading.
