@@ -28,7 +28,7 @@ Time spent: 17 hours
 * [x] Optional: Replies should be prefixed with the username and the reply_id should be set when posting the tweet
 * [ ] Optional: User can load more tweets once they reach the bottom of the feed using infinte loading.
 * [x] Extra: User can also tap on reply/retweet/favorite from their home timeline
-
+* [x] Extra: Optimistically updates the retweet/favorite state. Supports rolling back the action on the model and views if the request comes back with an error
 
 ## GIF Walkthrough
 
