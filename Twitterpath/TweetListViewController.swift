@@ -37,6 +37,12 @@ class TweetListViewController: UIViewController {
 //        })
     }
 
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let composeTweetVC = segue.destination as? ComposeTweetViewController {
+            composeTweetVC.delegate = self
+        }
+    }
+
     func refreshControlChanged(refreshControl: UIRefreshControl) {
         refreshTimeline { 
             refreshControl.endRefreshing()
@@ -54,10 +60,6 @@ class TweetListViewController: UIViewController {
             SVProgressHUD.showError(withStatus: error.localizedDescription)
             completion?()
         })
-    }
-    
-    @IBAction func composeTweet(_ sender: UIBarButtonItem) {
-    
     }
 
     @IBAction func signOut(_ sender: UIBarButtonItem) {
@@ -80,5 +82,12 @@ extension TweetListViewController: UITableViewDataSource {
         cell.twitterTweet = tweets[indexPath.row]
         
         return cell
+    }
+}
+
+extension TweetListViewController: TweetInjectable {
+    func newTweet(tweet: TwitterTweet) {
+        tweets.insert(tweet, at: 0)
+        tweetsTableView.reloadData()
     }
 }

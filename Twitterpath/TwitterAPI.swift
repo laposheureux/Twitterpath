@@ -9,17 +9,24 @@
 import Foundation
 import BDBOAuth1Manager
 
-enum TwitterDataType: String {
+enum TwitterFetchDataType: String {
     case homeTimeline = "1.1/statuses/home_timeline.json"
     case userData = "1.1/account/verify_credentials.json"
 }
 
+enum TwitterPostDataType: String {
+    case tweet = "1.1/statuses/update.json"
+}
+
 enum TwitterAPIError: Error {
+    case emptyTweet
     case unableToParseResponse
     case unknownError
     
     var localizedDescription: String {
         switch (self) {
+        case .emptyTweet:
+            return NSLocalizedString("Tweets must contain at least one character.", comment: "")
         case .unableToParseResponse:
             return NSLocalizedString("Unable to parse the JSON response from Twitter.", comment: "")
         case .unknownError:
@@ -42,10 +49,14 @@ class TwitterAPI {
     }
     
     
-    // MARK: - Helper function wrapper around `get`
+    // MARK: - Helper function wrapper around `get` and `post`
     
-    private func fetch(twitterDataType: TwitterDataType, success: @escaping ((URLSessionDataTask, Any?) -> Void), failure: @escaping ((URLSessionDataTask?, Error) -> Void)) {
-        twitterClient.get(twitterDataType.rawValue, parameters: nil, progress: nil, success: success, failure: failure)
+    private func fetch(twitterFetchDataType: TwitterFetchDataType, success: @escaping ((URLSessionDataTask, Any?) -> Void), failure: @escaping ((URLSessionDataTask?, Error) -> Void)) {
+        twitterClient.get(twitterFetchDataType.rawValue, parameters: nil, progress: nil, success: success, failure: failure)
+    }
+
+    private func post(twitterPostDataType: TwitterPostDataType, parameters: Any?, success: @escaping ((URLSessionDataTask, Any?) -> Void), failure: @escaping ((URLSessionDataTask?, Error) -> Void)) {
+        twitterClient.post(twitterPostDataType.rawValue, parameters: parameters, progress: nil, success: success, failure: failure)
     }
     
     
@@ -115,7 +126,7 @@ class TwitterAPI {
     
     // Helper function for accessing credentials semantically
     func currentAccount(success: @escaping ((TwitterUser) -> Void), failure: @escaping ((Error) -> Void)) {
-        fetch(twitterDataType: .userData, success: { (task: URLSessionDataTask, response: Any?) -> Void in
+        fetch(twitterFetchDataType: .userData, success: { (task: URLSessionDataTask, response: Any?) -> Void in
             if let userDictionary = response as? NSDictionary {
                 success(TwitterUser(dictionary: userDictionary))
             } else {
@@ -130,7 +141,7 @@ class TwitterAPI {
     // MARK: - User-contextual Information
     
     func homeTimeline(success: @escaping (([TwitterTweet]) -> Void), failure: @escaping ((Error) -> Void)) {
-        fetch(twitterDataType: .homeTimeline, success: { (task: URLSessionDataTask, response: Any?) in
+        fetch(twitterFetchDataType: .homeTimeline, success: { (task: URLSessionDataTask, response: Any?) in
             if let tweetsDictionary = response as? [NSDictionary] {
                 success(TwitterTweet.tweetsWithArray(dictionaries: tweetsDictionary))
             } else {
@@ -139,5 +150,22 @@ class TwitterAPI {
         }, failure: { (task: URLSessionDataTask?, error: Error) in
             failure(error)
         })
+    }
+
+
+    // MARK: - User actions
+
+    func submitTweet(tweet: TwitterTweet, success: (() -> Void)?, failure: ((Error) -> Void)?) {
+        var parameters: [String: String] = [:]
+        if let status = tweet.text {
+            parameters["status"] = status
+            post(twitterPostDataType: .tweet, parameters: parameters, success: { (task: URLSessionDataTask, response: Any?) in
+                success?()
+            }, failure: { (task: URLSessionDataTask?, error: Error) in
+                failure?(error)
+            })
+        } else {
+            failure?(TwitterAPIError.emptyTweet)
+        }
     }
 }

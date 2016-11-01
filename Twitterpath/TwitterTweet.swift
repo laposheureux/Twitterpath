@@ -30,6 +30,14 @@ class TwitterTweet {
             user = TwitterUser(dictionary: userDictionary)
         }
     }
+
+    init(text: String, retweetCount: Int = 0, favoritesCount: Int = 0, timestamp: Date, user: TwitterUser) {
+        self.text = text
+        self.retweetCount = retweetCount
+        self.favoritesCount = favoritesCount
+        self.timestamp = timestamp
+        self.user = user
+    }
     
     class func tweetsWithArray(dictionaries: [NSDictionary]) -> [TwitterTweet] {
         var tweets: [TwitterTweet] = []

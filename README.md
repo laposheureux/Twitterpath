@@ -19,10 +19,10 @@ Time spent: 15 hours
 * [x] Required: Signed in user will be persisted across restarts
 * [x] Required: In the home timeline, user can view tweets with the user profile picture, username, tweet text, and timestamp laid out with Auto Layout.
 * [x] Required: User can pull to refresh
-* [ ] Required: User can compose a new tweet by tapping on a compose button
+* [x] Required: User can compose a new tweet by tapping on a compose button
 * [ ] Required: User can tap on a tweet to view it, with controls to retweet, favorite, and reply
-* [ ] Optional: Countdown for the tweet character limit
-* [ ] Optional: After creating a tweet, it should be visible immediately in the timeline
+* [x] Optional: Countdown for the tweet character limit
+* [x] Optional: After creating a tweet, it should be visible immediately in the timeline
 * [ ] Optional: Retweeting and favoriting should increment the retweet and favorite count
 * [ ] Optional: Replies should be prefixed with the username and the reply_id should be set when posting the tweet
 * [ ] Optional: User can load more tweets once they reach the bottom of the feed using infinte loading.

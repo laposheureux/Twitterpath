@@ -8,9 +8,9 @@
 
 import UIKit
 
-@objc protocol TweetCellDelegate {
-    @objc optional func tweetCell(tweetCell: TweetCell, didSetRetreetTo value: Bool)
-    @objc optional func tweetCell(tweetCell: TweetCell, didSetLikeTo value: Bool)
+protocol TweetCellDelegate {
+    func tweetCell(tweetCell: TweetCell, didSetRetweetTo value: Bool)
+    func tweetCell(tweetCell: TweetCell, didSetLikeTo value: Bool)
 }
 
 class TweetCell: UITableViewCell {
