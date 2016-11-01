@@ -9,6 +9,11 @@
 import UIKit
 import SVProgressHUD
 
+protocol TweetUpdateable: class {
+    func newTweet(tweet: TwitterTweet)
+    func updateTweet(newTweet: TwitterTweet, oldTweet: TwitterTweet)
+}
+
 class TweetListViewController: UIViewController {
     @IBOutlet var tweetsTableView: UITableView!
     
@@ -85,7 +90,7 @@ extension TweetListViewController: UITableViewDataSource {
     }
 }
 
-extension TweetListViewController: TweetInjectable {
+extension TweetListViewController: TweetUpdateable {
     func newTweet(tweet: TwitterTweet) {
         tweets.insert(tweet, at: 0)
         tweetsTableView.reloadData()

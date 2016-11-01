@@ -9,10 +9,6 @@
 import UIKit
 import SVProgressHUD
 
-protocol TweetInjectable: class {
-    func newTweet(tweet: TwitterTweet)
-}
-
 class ComposeTweetViewController: UIViewController {
     @IBOutlet var profileImageView: UIImageView!
     @IBOutlet var name: UILabel!

@@ -255,7 +255,7 @@
                             <constraint firstItem="t2T-7c-Pse" firstAttribute="top" secondItem="ZgD-pg-58U" secondAttribute="bottom" constant="20" id="ZR3-Vo-987"/>
                             <constraint firstItem="Zth-fU-U4V" firstAttribute="leading" secondItem="jnM-QK-3Kz" secondAttribute="leading" constant="12" id="Zcn-OB-4R1"/>
                             <constraint firstItem="8g8-F8-mTt" firstAttribute="top" secondItem="zdU-7a-wc6" secondAttribute="bottom" id="vsh-Uk-mAu"/>
-                            <constraint firstItem="Zth-fU-U4V" firstAttribute="top" secondItem="8g8-F8-mTt" secondAttribute="bottom" constant="8" id="wM5-nH-I34"/>
+                            <constraint firstItem="Zth-fU-U4V" firstAttribute="top" secondItem="8g8-F8-mTt" secondAttribute="bottom" constant="4" id="wM5-nH-I34"/>
                             <constraint firstItem="8g8-F8-mTt" firstAttribute="leading" secondItem="t2T-7c-Pse" secondAttribute="trailing" constant="8" id="zLx-U3-t79"/>
                         </constraints>
                     </view>
