@@ -13,10 +13,6 @@ protocol TweetCellDelegate: class {
     func tweetCell(tweetCell: TweetCell, didSetLikeTo value: Bool)
 }
 
-// 19cf86
-// 0xe81c4f
-// 0x66757F
-
 class TweetCell: UITableViewCell {
     @IBOutlet var name: UILabel!
     @IBOutlet var username: UILabel!

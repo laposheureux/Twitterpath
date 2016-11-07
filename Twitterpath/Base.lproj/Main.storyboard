@@ -19,12 +19,62 @@
                     <view key="view" contentMode="scaleToFill" id="pN3-eR-g0b">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ewF-7K-OlN">
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="applicationSectionCell" rowHeight="44" id="jjm-I7-yrE" customClass="ApplicationSectionCell" customModule="Twitterpath" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jjm-I7-yrE" id="qMP-Ea-kgM">
+                                            <frame key="frameInset" width="375" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="UYo-FS-7wm">
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="28" id="9up-gH-r68"/>
+                                                        <constraint firstAttribute="height" constant="28" id="dOA-SO-IJT"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Home" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qqx-j5-DDw">
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailingMargin" secondItem="qqx-j5-DDw" secondAttribute="trailing" id="C0O-bj-TOh"/>
+                                                <constraint firstItem="UYo-FS-7wm" firstAttribute="leading" secondItem="qMP-Ea-kgM" secondAttribute="leading" constant="8" id="Lxb-Bs-Ddv"/>
+                                                <constraint firstAttribute="bottom" secondItem="UYo-FS-7wm" secondAttribute="bottom" constant="8" id="NYh-3Z-UgS"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="qqx-j5-DDw" secondAttribute="bottom" constant="3" id="O67-OE-ddY"/>
+                                                <constraint firstItem="qqx-j5-DDw" firstAttribute="leading" secondItem="UYo-FS-7wm" secondAttribute="trailing" constant="8" id="qtb-xw-xbR"/>
+                                                <constraint firstItem="UYo-FS-7wm" firstAttribute="top" secondItem="qMP-Ea-kgM" secondAttribute="top" constant="8" id="tRX-b4-AQy"/>
+                                                <constraint firstItem="qqx-j5-DDw" firstAttribute="top" secondItem="qMP-Ea-kgM" secondAttribute="topMargin" constant="3" id="yIs-gK-fDF"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="iconView" destination="UYo-FS-7wm" id="UyS-Cr-IN5"/>
+                                            <outlet property="label" destination="qqx-j5-DDw" id="j1e-ls-uMC"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="ewF-7K-OlN" secondAttribute="trailing" id="7qf-Q6-Jt5"/>
+                            <constraint firstItem="ewF-7K-OlN" firstAttribute="top" secondItem="GFI-Km-Tm3" secondAttribute="bottom" id="8QN-pS-De6"/>
+                            <constraint firstItem="0Tf-GM-kM3" firstAttribute="top" secondItem="ewF-7K-OlN" secondAttribute="bottom" id="TcV-Wj-iHU"/>
+                            <constraint firstItem="ewF-7K-OlN" firstAttribute="leading" secondItem="pN3-eR-g0b" secondAttribute="leading" id="j82-yB-cdY"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="menuTableView" destination="ewF-7K-OlN" id="cFo-FM-A0d"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JfF-bY-Fy5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-275" y="-367"/>
+            <point key="canvasLocation" x="-275.5" y="-367.5"/>
         </scene>
         <!--Sign In View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -53,6 +103,7 @@
                                 </state>
                                 <connections>
                                     <action selector="loginPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="PTN-Jo-A1c"/>
+                                    <segue destination="Dy4-Zn-QzR" kind="modal" identifier="loginSegue" id="4LG-Mh-wUO"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -65,12 +116,11 @@
                     <navigationItem key="navigationItem" id="Lcm-j5-OnQ"/>
                     <connections>
                         <outlet property="loginButton" destination="ca3-vX-l4n" id="yj2-Ya-QvH"/>
-                        <segue destination="MXM-I3-946" kind="modal" identifier="loginSegue" id="7Df-P8-wEk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-815" y="23"/>
+            <point key="canvasLocation" x="-862" y="-368"/>
         </scene>
         <!--Profile View Controller-->
         <scene sceneID="iMe-Sw-dBr">
@@ -524,7 +574,7 @@
         <!--Navigation Controller-->
         <scene sceneID="BLs-7n-yoJ">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Dmt-MF-oSS" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="profileNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="Dmt-MF-oSS" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="wOt-hD-ZIK">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -551,6 +601,6 @@
         <simulatedScreenMetrics key="destination" type="retina4_7.fullscreen"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="xaL-nH-UZV"/>
+        <segue reference="okc-ek-BlL"/>
     </inferredMetricsTieBreakers>
 </document>
