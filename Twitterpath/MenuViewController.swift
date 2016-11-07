@@ -12,7 +12,9 @@ class MenuViewController: UIViewController {
     @IBOutlet var menuTableView: UITableView!
     var profileNavigationController: UIViewController!
     var tweetsNavigationController: UIViewController!
+    var mentionsNavigationController: UIViewController!
     var navControllers: [UIViewController] = []
+    var hamburgerViewController: HamburgerViewController!
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -22,9 +24,13 @@ class MenuViewController: UIViewController {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         profileNavigationController = storyboard.instantiateViewController(withIdentifier: "profileNavigationController")
         tweetsNavigationController = storyboard.instantiateViewController(withIdentifier: "tweetsNavigationController")
+        mentionsNavigationController = storyboard.instantiateViewController(withIdentifier: "mentionsNavigationController")
         
         navControllers.append(tweetsNavigationController)
+        navControllers.append(mentionsNavigationController)
         navControllers.append(profileNavigationController)
+        
+        hamburgerViewController.contentViewController = navControllers[0]
     }
 }
 
@@ -35,6 +41,9 @@ extension MenuViewController: UITableViewDataSource {
         if navControllers[indexPath.row] == tweetsNavigationController {
             cell.iconImage = #imageLiteral(resourceName: "Home")
             cell.label.text = NSLocalizedString("Home", comment: "")
+        } else if navControllers[indexPath.row] == mentionsNavigationController {
+            cell.iconImage = #imageLiteral(resourceName: "Mention")
+            cell.label.text = NSLocalizedString("Mentions", comment: "")
         } else {
             cell.iconImage = #imageLiteral(resourceName: "Profile")
             cell.label.text = NSLocalizedString("Profile", comment: "")
@@ -49,5 +58,8 @@ extension MenuViewController: UITableViewDataSource {
 }
 
 extension MenuViewController: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        hamburgerViewController.contentViewController = navControllers[indexPath.row]
+    }
 }

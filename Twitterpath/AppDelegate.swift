@@ -20,8 +20,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Ensure that BDBO was able to store the auth token in the keychain AND that there is a stored current user.
         if TwitterAPI.isAuthorized && TwitterUser.currentUser != nil {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let vc = storyboard.instantiateViewController(withIdentifier: "tweetsNavigationController")
-            window?.rootViewController = vc
+            let hamburgerViewController = storyboard.instantiateViewController(withIdentifier:  "hamburgerViewController") as! HamburgerViewController
+            let menuViewController = storyboard.instantiateViewController(withIdentifier: "menuViewController") as! MenuViewController
+            
+            menuViewController.hamburgerViewController = hamburgerViewController
+            hamburgerViewController.menuViewController = menuViewController
+            window?.rootViewController = hamburgerViewController
         }
         
         NotificationCenter.default.addObserver(forName: TwitterAPI.logoutNotification, object: nil, queue: OperationQueue.main, using: { (notification: Notification) in

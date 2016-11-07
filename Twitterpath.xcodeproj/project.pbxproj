@@ -20,6 +20,8 @@
 		93A6ABA31DD0652F00F4CA7D /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A6ABA21DD0652F00F4CA7D /* MenuViewController.swift */; };
 		93A6ABA51DD0668A00F4CA7D /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A6ABA41DD0668A00F4CA7D /* ProfileViewController.swift */; };
 		93A6ABA71DD073CC00F4CA7D /* ApplicationSectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A6ABA61DD073CC00F4CA7D /* ApplicationSectionCell.swift */; };
+		93A6ABA91DD08B5900F4CA7D /* MentionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A6ABA81DD08B5900F4CA7D /* MentionsViewController.swift */; };
+		93A6ABAB1DD0DDA600F4CA7D /* HamburgerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A6ABAA1DD0DDA600F4CA7D /* HamburgerViewController.swift */; };
 		93D4BD3A1DC6D5F00077D975 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D4BD391DC6D5F00077D975 /* SignInViewController.swift */; };
 		93D4BD3E1DC6E2060077D975 /* TwitterAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D4BD3D1DC6E2060077D975 /* TwitterAPI.swift */; };
 		93D4BD421DC705B00077D975 /* TwitterUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D4BD411DC705B00077D975 /* TwitterUser.swift */; };
@@ -43,6 +45,8 @@
 		93A6ABA21DD0652F00F4CA7D /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		93A6ABA41DD0668A00F4CA7D /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		93A6ABA61DD073CC00F4CA7D /* ApplicationSectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationSectionCell.swift; sourceTree = "<group>"; };
+		93A6ABA81DD08B5900F4CA7D /* MentionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MentionsViewController.swift; sourceTree = "<group>"; };
+		93A6ABAA1DD0DDA600F4CA7D /* HamburgerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HamburgerViewController.swift; sourceTree = "<group>"; };
 		93D4BD391DC6D5F00077D975 /* SignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		93D4BD3D1DC6E2060077D975 /* TwitterAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterAPI.swift; sourceTree = "<group>"; };
 		93D4BD411DC705B00077D975 /* TwitterUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterUser.swift; sourceTree = "<group>"; };
@@ -128,6 +132,8 @@
 			isa = PBXGroup;
 			children = (
 				9371B7701DC7FA2D0038F742 /* ComposeTweetViewController.swift */,
+				93A6ABAA1DD0DDA600F4CA7D /* HamburgerViewController.swift */,
+				93A6ABA81DD08B5900F4CA7D /* MentionsViewController.swift */,
 				93A6ABA21DD0652F00F4CA7D /* MenuViewController.swift */,
 				93A6ABA41DD0668A00F4CA7D /* ProfileViewController.swift */,
 				93D4BD391DC6D5F00077D975 /* SignInViewController.swift */,
@@ -295,8 +301,10 @@
 				93D4BD421DC705B00077D975 /* TwitterUser.swift in Sources */,
 				9303ECB41DC74608003B0480 /* TweetCell.swift in Sources */,
 				9371B7711DC7FA2D0038F742 /* ComposeTweetViewController.swift in Sources */,
+				93A6ABAB1DD0DDA600F4CA7D /* HamburgerViewController.swift in Sources */,
 				93A6ABA71DD073CC00F4CA7D /* ApplicationSectionCell.swift in Sources */,
 				9371B7751DC852CE0038F742 /* TwitterColors.swift in Sources */,
+				93A6ABA91DD08B5900F4CA7D /* MentionsViewController.swift in Sources */,
 				93A6ABA31DD0652F00F4CA7D /* MenuViewController.swift in Sources */,
 				93D4BD3E1DC6E2060077D975 /* TwitterAPI.swift in Sources */,
 				93A6ABA51DD0668A00F4CA7D /* ProfileViewController.swift in Sources */,

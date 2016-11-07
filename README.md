@@ -16,8 +16,8 @@ Time spent: 10 hours
 
 #### Hamburger Menu
 
-* [ ] Required: Dragging anywhere in the view should reveal the menu
-* [ ] Required: The menu should include links to your profile, the home timeline, and the mentions view
+* [x] Required: Dragging anywhere in the view should reveal the menu
+* [x] Required: The menu should include links to your profile, the home timeline, and the mentions view
 
 #### Profile Page
 
@@ -28,6 +28,10 @@ Time spent: 10 hours
 #### Home Timeline
 
 * [ ] Required: Tapping on a user image should bring up that user's profile page
+
+#### Mentions View
+
+* [ ] Required: List of tweets showing mentions (implicit from menu requirements)
 
 ## GIF Walkthrough
 
