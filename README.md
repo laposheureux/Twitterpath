@@ -1,3 +1,5 @@
+For the week three version, please switch to the "week-three-cutoff" branch.
+
 # Twitterpath
 
 This is an application that provides a lightweight interface to Twitter for one user.
