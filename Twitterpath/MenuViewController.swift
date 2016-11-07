@@ -11,9 +11,8 @@ import UIKit
 class MenuViewController: UIViewController {
     @IBOutlet var menuTableView: UITableView!
     var profileNavigationController: UIViewController!
-    var tweetsNavigationController: UIViewController!
-    var mentionsNavigationController: UIViewController!
-    var navControllers: [UIViewController] = []
+    var tweetsNavigationController: TweetsNavigationController!
+    var mentionsNavigationController: TweetsNavigationController!
     var hamburgerViewController: HamburgerViewController!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,14 +22,13 @@ class MenuViewController: UIViewController {
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         profileNavigationController = storyboard.instantiateViewController(withIdentifier: "profileNavigationController")
-        tweetsNavigationController = storyboard.instantiateViewController(withIdentifier: "tweetsNavigationController")
-        mentionsNavigationController = storyboard.instantiateViewController(withIdentifier: "mentionsNavigationController")
+        tweetsNavigationController = storyboard.instantiateViewController(withIdentifier: "tweetsNavigationController") as! TweetsNavigationController
+        mentionsNavigationController = storyboard.instantiateViewController(withIdentifier: "tweetsNavigationController") as! TweetsNavigationController
         
-        navControllers.append(tweetsNavigationController)
-        navControllers.append(mentionsNavigationController)
-        navControllers.append(profileNavigationController)
+        tweetsNavigationController.timelineType = .home
+        mentionsNavigationController.timelineType = .mentions
         
-        hamburgerViewController.contentViewController = navControllers[0]
+        hamburgerViewController.contentViewController = tweetsNavigationController
     }
 }
 
@@ -38,10 +36,10 @@ extension MenuViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "applicationSectionCell") as! ApplicationSectionCell
         
-        if navControllers[indexPath.row] == tweetsNavigationController {
+        if indexPath.row == 0 {
             cell.iconImage = #imageLiteral(resourceName: "Home")
             cell.label.text = NSLocalizedString("Home", comment: "")
-        } else if navControllers[indexPath.row] == mentionsNavigationController {
+        } else if indexPath.row == 1 {
             cell.iconImage = #imageLiteral(resourceName: "Mention")
             cell.label.text = NSLocalizedString("Mentions", comment: "")
         } else {
@@ -53,13 +51,19 @@ extension MenuViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return navControllers.count
+        return 3
     }
 }
 
 extension MenuViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        hamburgerViewController.contentViewController = navControllers[indexPath.row]
+        if indexPath.row == 0 {
+            hamburgerViewController.contentViewController = tweetsNavigationController
+        } else if  indexPath.row == 1 {
+            hamburgerViewController.contentViewController = mentionsNavigationController
+        } else {
+            hamburgerViewController.contentViewController = profileNavigationController
+        }
     }
 }

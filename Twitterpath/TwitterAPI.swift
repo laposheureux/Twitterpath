@@ -11,6 +11,7 @@ import BDBOAuth1Manager
 
 enum TwitterFetchDataType: String {
     case homeTimeline = "1.1/statuses/home_timeline.json"
+    case mentionsTimeline = "1.1/statuses/mentions_timeline.json"
     case userData = "1.1/account/verify_credentials.json"
 }
 
@@ -146,6 +147,18 @@ class TwitterAPI {
     
     func homeTimeline(success: @escaping (([TwitterTweet]) -> Void), failure: @escaping ((Error) -> Void)) {
         fetch(twitterFetchDataPath: TwitterFetchDataType.homeTimeline.rawValue, success: { (task: URLSessionDataTask, response: Any?) in
+            if let tweetsDictionary = response as? [NSDictionary] {
+                success(TwitterTweet.tweetsWithArray(dictionaries: tweetsDictionary))
+            } else {
+                failure(TwitterAPIError.unableToParseResponse)
+            }
+        }, failure: { (task: URLSessionDataTask?, error: Error) in
+            failure(error)
+        })
+    }
+    
+    func mentionsTimeline(success: @escaping (([TwitterTweet]) -> Void), failure: @escaping ((Error) -> Void)) {
+        fetch(twitterFetchDataPath: TwitterFetchDataType.mentionsTimeline.rawValue, success: { (task: URLSessionDataTask, response: Any?) in
             if let tweetsDictionary = response as? [NSDictionary] {
                 success(TwitterTweet.tweetsWithArray(dictionaries: tweetsDictionary))
             } else {

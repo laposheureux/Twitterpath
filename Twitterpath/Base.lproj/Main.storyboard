@@ -172,25 +172,6 @@
             </objects>
             <point key="canvasLocation" x="-1475" y="-369"/>
         </scene>
-        <!--Mentions View Controller-->
-        <scene sceneID="hjP-xb-ykY">
-            <objects>
-                <viewController id="ebQ-Fc-rBa" customClass="MentionsViewController" customModule="Twitterpath" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="tLM-N7-kgo"/>
-                        <viewControllerLayoutGuide type="bottom" id="zr2-dv-EoZ"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="pwV-3B-yAK">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="btF-gY-KLJ"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="2ni-aK-7fu" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="771" y="-1582"/>
-        </scene>
         <!--Profile View Controller-->
         <scene sceneID="iMe-Sw-dBr">
             <objects>
@@ -615,10 +596,10 @@
             </objects>
             <point key="canvasLocation" x="1893" y="23"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Tweets Navigation Controller-->
         <scene sceneID="g1A-R4-wc7">
             <objects>
-                <navigationController storyboardIdentifier="tweetsNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="MXM-I3-946" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="tweetsNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="MXM-I3-946" customClass="TweetsNavigationController" customModule="Twitterpath" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO"/>
@@ -657,24 +638,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kcw-D0-JCj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="278" y="-791"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="1f2-l9-Tp9">
-            <objects>
-                <navigationController storyboardIdentifier="mentionsNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="9wa-jk-25v" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="pvv-gP-Bro">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="ebQ-Fc-rBa" kind="relationship" relationship="rootViewController" id="X7V-Xu-OJk"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="tHD-cT-awy" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="278" y="-1582"/>
         </scene>
     </scenes>
     <resources>

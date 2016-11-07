@@ -31,7 +31,7 @@ Time spent: 10 hours
 
 #### Mentions View
 
-* [ ] Required: List of tweets showing mentions (implicit from menu requirements)
+* [x] Required: List of tweets showing mentions (implicit from menu requirements)
 
 ## GIF Walkthrough
 

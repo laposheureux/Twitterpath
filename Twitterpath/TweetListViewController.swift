@@ -13,10 +13,16 @@ protocol TweetUpdateable: class {
     func newTweet(tweet: TwitterTweet)
 }
 
+enum TweetListType: String {
+    case home
+    case mentions
+}
+
 class TweetListViewController: UIViewController {
     @IBOutlet var tweetsTableView: UITableView!
     
     var tweets: [TwitterTweet] = []
+    var tweetListType: TweetListType = .home
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,8 +31,17 @@ class TweetListViewController: UIViewController {
         refreshControl.addTarget(self, action: #selector(refreshControlChanged(refreshControl:)), for: .valueChanged)
         tweetsTableView.insertSubview(refreshControl, at: 0)
         
-        navigationController?.navigationBar.topItem?.title = "Home"
-        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+        if let navigationController = navigationController as? TweetsNavigationController {
+            tweetListType = navigationController.timelineType
+            switch tweetListType {
+            case .home:
+                navigationController.navigationBar.topItem?.title = "Home"
+            case .mentions:
+                navigationController.navigationBar.topItem?.title = "Mentions"
+            }
+            
+            navigationController.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+        }
         
         tweetsTableView.dataSource = self
         tweetsTableView.estimatedRowHeight = 90
@@ -60,15 +75,25 @@ class TweetListViewController: UIViewController {
 
     func refreshTimeline(showLoadingStatus: Bool, completion: (() -> Void)?) {
         if showLoadingStatus { SVProgressHUD.show() }
-        TwitterAPI.sharedInstance.homeTimeline(success: { [weak self] (tweets: [TwitterTweet]) in
+        
+        let successFunction = { [weak self] (tweets: [TwitterTweet]) in
             if showLoadingStatus { SVProgressHUD.dismiss() }
             self?.tweets = tweets
             self?.tweetsTableView.reloadData()
             completion?()
-        }, failure: { (error: Error) in
+        }
+        let failureFunction = { (error: Error) in
             SVProgressHUD.showError(withStatus: error.localizedDescription)
             completion?()
-        })
+        }
+        
+        switch tweetListType {
+        case .home:
+            TwitterAPI.sharedInstance.homeTimeline(success: successFunction, failure: failureFunction)
+        case .mentions:
+            TwitterAPI.sharedInstance.mentionsTimeline(success: successFunction, failure: failureFunction)
+        }
+        
     }
 
     @IBAction func signOut(_ sender: UIBarButtonItem) {
