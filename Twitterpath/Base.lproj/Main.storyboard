@@ -214,10 +214,14 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="o1L-ve-bea">
+                                                    <gestureRecognizers/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="60" id="59C-01-CKU"/>
                                                         <constraint firstAttribute="height" constant="60" id="je6-BJ-g31"/>
                                                     </constraints>
+                                                    <connections>
+                                                        <outletCollection property="gestureRecognizers" destination="RfF-b2-bm0" appends="YES" id="fE5-26-o1r"/>
+                                                    </connections>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Aaron Testerson" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tyy-1y-k4n">
                                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
@@ -340,6 +344,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zdt-AK-2hD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="RfF-b2-bm0">
+                    <connections>
+                        <action selector="onTapProfileImage:" destination="Nvx-aU-bph" id="rt1-SV-3rs"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="770.5" y="22.5"/>
         </scene>

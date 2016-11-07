@@ -99,6 +99,10 @@ class TweetListViewController: UIViewController {
     @IBAction func signOut(_ sender: UIBarButtonItem) {
         TwitterAPI.sharedInstance.logout()
     }
+    
+    @IBAction func onTapProfileImage(_ sender: UITapGestureRecognizer) {
+        
+    }
 }
 
 extension TweetListViewController: UITableViewDataSource {

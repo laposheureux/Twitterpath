@@ -29,6 +29,12 @@ class MenuViewController: UIViewController {
         mentionsNavigationController.timelineType = .mentions
         
         hamburgerViewController.contentViewController = tweetsNavigationController
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(switchToProfile(notification:)), name: NSNotification.Name("switchToProfile"), object: nil)
+    }
+    
+    func switchToProfile(notification: Notification) {
+        
     }
 }
 
