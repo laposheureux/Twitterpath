@@ -1,4 +1,4 @@
-For the week three version, please switch to the "week-three-cutoff" branch.
+For the week three version, please switch to the ["week-three-cutoff"](https://github.com/laposheureux/twitterpath/tree/week-three-cutoff) branch.
 
 # Twitterpath
 
