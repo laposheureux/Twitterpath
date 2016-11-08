@@ -145,10 +145,10 @@ class TwitterAPI {
         })
     }
     
-    func profileData(withID userID: String, success: @escaping ((TwitterUser) -> Void), failure: @escaping ((Error) -> Void)) {
-        fetch(twitterFetchDataPath: "\(TwitterFetchDataType.anyUserData.rawValue)?user_id=\(userID)", success: { (task: URLSessionDataTask, response: Any?) in
-            if let userDictionary = response as? NSDictionary {
-                success(TwitterUser(dictionary: userDictionary))
+    func profileData(withScreenname screenname: String, success: @escaping ((TwitterUser) -> Void), failure: @escaping ((Error) -> Void)) {
+        fetch(twitterFetchDataPath: "\(TwitterFetchDataType.anyUserData.rawValue)?screen_name=\(screenname)", success: { (task: URLSessionDataTask, response: Any?) in
+            if let userDictionary = response as? [NSDictionary] {
+                success(TwitterUser(dictionary: userDictionary.first!))
             } else {
                 failure(TwitterAPIError.unableToParseResponse)
             }

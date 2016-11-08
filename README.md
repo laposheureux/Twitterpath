@@ -21,13 +21,13 @@ Time spent: 10 hours
 
 #### Profile Page
 
-* [ ] Required: Contains the user header view
-* [ ] Required: Contains a section with the user's basic stats: # of tweet, # following, # followers
+* [x] Required: Contains the user header view
+* [x] Required: Contains a section with the user's basic stats: # of tweet, # following, # followers
 * [ ] Required: Shows the user timeline
 
 #### Home Timeline
 
-* [ ] Required: Tapping on a user image should bring up that user's profile page
+* [x] Required: Tapping on a user image should bring up that user's profile page
 
 #### Mentions View
 

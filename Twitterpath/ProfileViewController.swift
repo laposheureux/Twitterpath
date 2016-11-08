@@ -18,10 +18,10 @@ class ProfileViewController: UIViewController {
     @IBOutlet var numberFollowingLabel: UILabel!
     @IBOutlet var numberFollowersLabel: UILabel!
     
-    var profileID: String? {
+    var screenname: String? {
         didSet {
-            if let profileID = profileID {
-                loadProfile(with: profileID)
+            if let screenname = screenname {
+                loadProfile(with: screenname)
             }
         }
     }
@@ -61,8 +61,8 @@ class ProfileViewController: UIViewController {
         }
     }
     
-    func loadProfile(with id: String) {
-        TwitterAPI.sharedInstance.profileData(withID: id, success: { [weak self] (user: TwitterUser) in
+    func loadProfile(with screenname: String) {
+        TwitterAPI.sharedInstance.profileData(withScreenname: screenname, success: { [weak self] (user: TwitterUser) in
             self?.twitterUser = user
         }, failure: { (error: Error) in
             SVProgressHUD.showError(withStatus: error.localizedDescription)

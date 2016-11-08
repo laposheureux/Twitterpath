@@ -103,7 +103,7 @@ class TweetListViewController: UIViewController {
     @IBAction func onTapProfileImage(_ sender: UITapGestureRecognizer) {
         if let cell = sender.view?.superview?.superview as? UITableViewCell, let indexPath = tweetsTableView.indexPath(for: cell) {
             let tweet = tweets[indexPath.row]
-            NotificationCenter.default.post(name: NSNotification.Name("switchToProfile"), object: nil, userInfo: ["id": tweet.idString])
+            NotificationCenter.default.post(name: NSNotification.Name("switchToProfile"), object: nil, userInfo: ["screenname": tweet.user!.screenname])
         }
     }
 }

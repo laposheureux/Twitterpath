@@ -34,8 +34,8 @@ class MenuViewController: UIViewController {
     }
     
     func switchToProfile(notification: Notification) {
-        if let idString = notification.userInfo?["id"] as? String {
-            profileNavigationController.profileID = idString
+        if let screenname = notification.userInfo?["screenname"] as? String {
+            profileNavigationController.screenname = screenname
             hamburgerViewController.contentViewController = profileNavigationController
         }
     }

@@ -9,12 +9,12 @@
 import UIKit
 
 class ProfileNavigationController: UINavigationController {
-    var profileID: String? {
+    var screenname: String? {
         didSet {
-            if let profileID = profileID {
+            if let screenname = screenname {
                 popToRootViewController(animated: false)
                 let profileViewController = topViewController as! ProfileViewController
-                profileViewController.profileID = profileID
+                profileViewController.screenname = screenname
             }
         }
     }
