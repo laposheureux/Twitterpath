@@ -35,4 +35,4 @@ Time spent: 10 hours
 
 ## GIF Walkthrough
 
-  ![twitterpath](twitterpath2.gif)
+  ![twitterpath](TwitterPath2.gif)
