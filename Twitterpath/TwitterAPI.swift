@@ -184,8 +184,8 @@ class TwitterAPI {
         })
     }
     
-    func userTimeline(withID userID: String, success: @escaping (([TwitterTweet]) -> Void), failure: @escaping ((Error) -> Void)) {
-        fetch(twitterFetchDataPath: "\(TwitterFetchDataType.userTimeline.rawValue)?user_id=\(userID)", success: { (task: URLSessionDataTask, response: Any?) in
+    func userTimeline(withScreenname screenname: String, success: @escaping (([TwitterTweet]) -> Void), failure: @escaping ((Error) -> Void)) {
+        fetch(twitterFetchDataPath: "\(TwitterFetchDataType.userTimeline.rawValue)?screen_name=\(screenname)", success: { (task: URLSessionDataTask, response: Any?) in
             if let tweetsDictionary = response as? [NSDictionary] {
                 success(TwitterTweet.tweetsWithArray(dictionaries: tweetsDictionary))
             } else {

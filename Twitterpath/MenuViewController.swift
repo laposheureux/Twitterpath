@@ -72,6 +72,7 @@ extension MenuViewController: UITableViewDelegate {
         } else if  indexPath.row == 1 {
             hamburgerViewController.contentViewController = mentionsNavigationController
         } else {
+            profileNavigationController.screenname = TwitterUser.currentUser?.screenname
             hamburgerViewController.contentViewController = profileNavigationController
         }
     }

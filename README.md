@@ -23,7 +23,7 @@ Time spent: 10 hours
 
 * [x] Required: Contains the user header view
 * [x] Required: Contains a section with the user's basic stats: # of tweet, # following, # followers
-* [ ] Required: Shows the user timeline
+* [x] Required: Shows the user timeline
 
 #### Home Timeline
 

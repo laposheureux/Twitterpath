@@ -100,7 +100,7 @@ class TweetListViewController: UIViewController {
         TwitterAPI.sharedInstance.logout()
     }
     
-    @IBAction func onTapProfileImage(_ sender: UITapGestureRecognizer) {
+    func onTapProfileImage(_ sender: UITapGestureRecognizer) {
         if let cell = sender.view?.superview?.superview as? UITableViewCell, let indexPath = tweetsTableView.indexPath(for: cell) {
             let tweet = tweets[indexPath.row]
             NotificationCenter.default.post(name: NSNotification.Name("switchToProfile"), object: nil, userInfo: ["screenname": tweet.user!.screenname])
@@ -122,6 +122,8 @@ extension TweetListViewController: UITableViewDataSource {
 
         cell.selectionStyle = .none
         cell.twitterTweet = tweets[indexPath.row]
+        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(onTapProfileImage(_:)))
+        cell.profileImageView.addGestureRecognizer(gestureRecognizer)
         cell.delegate = self
         
         return cell
