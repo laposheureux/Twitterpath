@@ -13,6 +13,10 @@ class TwitterUser: NSObject, NSCoding {
     var screenname: String?
     var tagline: String?
     var profileImageURL: URL?
+    var profileCoverImageURL: URL?
+    var numberTweets: Int?
+    var numberFollowing: Int?
+    var numberFollowers: Int?
     
     static var _currentUser: TwitterUser?
     class var currentUser: TwitterUser? {
@@ -49,17 +53,28 @@ class TwitterUser: NSObject, NSCoding {
         name = dictionary["name"] as? String
         screenname = dictionary["screen_name"] as? String
         tagline = dictionary["description"] as? String
+        numberTweets = dictionary["statuses_count"] as? Int
+        numberFollowing = dictionary["friends_count"] as? Int
+        numberFollowers = dictionary["followers_count"] as? Int
         
         if let profileImageURLString = dictionary["profile_image_url_https"] as? String {
             profileImageURL = URL(string: profileImageURLString)
         }
+        
+        if let profileCoverImageURLString = dictionary["profile_background_image_url_https"] as? String {
+            profileCoverImageURL = URL(string: profileCoverImageURLString)
+        }
     }
     
-    init(name: String?, screenname: String?, tagline: String?, profileImageURL: URL?) {
+    init(name: String?, screenname: String?, tagline: String?, numberTweets: Int?, numberFollowing: Int?, numberFollowers: Int?, profileImageURL: URL?, profileCoverImageURL: URL?) {
         self.name = name
         self.screenname = screenname
         self.tagline = tagline
+        self.numberTweets = numberTweets
+        self.numberFollowing = numberFollowing
+        self.numberFollowers = numberFollowers
         self.profileImageURL = profileImageURL
+        self.profileCoverImageURL = profileCoverImageURL
     }
     
     
@@ -69,15 +84,23 @@ class TwitterUser: NSObject, NSCoding {
         let name = decoder.decodeObject(forKey: "name") as? String
         let screenname = decoder.decodeObject(forKey: "screenname") as? String
         let tagline = decoder.decodeObject(forKey: "tagline") as? String
+        let numberTweets = decoder.decodeObject(forKey: "numberTweets") as? Int
+        let numberFollowing = decoder.decodeObject(forKey: "numberFollowing") as? Int
+        let numberFollowers = decoder.decodeObject(forKey: "numberFollowers") as? Int
         let profileImageURL = decoder.decodeObject(forKey: "profileImageURL") as? URL
+        let profileCoverImageURL = decoder.decodeObject(forKey: "profileCoverImageURL") as? URL
         
-        self.init(name: name, screenname: screenname, tagline: tagline, profileImageURL: profileImageURL)
+        self.init(name: name, screenname: screenname, tagline: tagline, numberTweets: numberTweets, numberFollowing: numberFollowing, numberFollowers: numberFollowers, profileImageURL: profileImageURL, profileCoverImageURL: profileCoverImageURL)
     }
     
     func encode(with aCoder: NSCoder) {
         aCoder.encode(name, forKey: "name")
         aCoder.encode(screenname, forKey: "screenname")
         aCoder.encode(tagline, forKey: "tagline")
+        aCoder.encode(numberTweets, forKey: "numberTweets")
+        aCoder.encode(numberFollowing, forKey: "numberFollowing")
+        aCoder.encode(numberFollowers, forKey: "numberFollowers")
         aCoder.encode(profileImageURL, forKey: "profileImageURL")
+        aCoder.encode(profileCoverImageURL, forKey: "profileCoverImageURL")
     }
 }

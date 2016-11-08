@@ -10,7 +10,7 @@ import UIKit
 
 class MenuViewController: UIViewController {
     @IBOutlet var menuTableView: UITableView!
-    var profileNavigationController: UIViewController!
+    var profileNavigationController: ProfileNavigationController!
     var tweetsNavigationController: TweetsNavigationController!
     var mentionsNavigationController: TweetsNavigationController!
     var hamburgerViewController: HamburgerViewController!
@@ -21,7 +21,7 @@ class MenuViewController: UIViewController {
         menuTableView.delegate = self
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        profileNavigationController = storyboard.instantiateViewController(withIdentifier: "profileNavigationController")
+        profileNavigationController = storyboard.instantiateViewController(withIdentifier: "profileNavigationController") as! ProfileNavigationController
         tweetsNavigationController = storyboard.instantiateViewController(withIdentifier: "tweetsNavigationController") as! TweetsNavigationController
         mentionsNavigationController = storyboard.instantiateViewController(withIdentifier: "tweetsNavigationController") as! TweetsNavigationController
         
@@ -34,7 +34,10 @@ class MenuViewController: UIViewController {
     }
     
     func switchToProfile(notification: Notification) {
-        
+        if let idString = notification.userInfo?["id"] as? String {
+            profileNavigationController.profileID = idString
+            hamburgerViewController.contentViewController = profileNavigationController
+        }
     }
 }
 

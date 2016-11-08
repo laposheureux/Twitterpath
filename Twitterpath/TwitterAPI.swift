@@ -10,9 +10,11 @@ import Foundation
 import BDBOAuth1Manager
 
 enum TwitterFetchDataType: String {
+    case anyUserData = "1.1/users/lookup.json"
     case homeTimeline = "1.1/statuses/home_timeline.json"
     case mentionsTimeline = "1.1/statuses/mentions_timeline.json"
     case userData = "1.1/account/verify_credentials.json"
+    case userTimeline = "1.1/statuses/user_timeline.json"
 }
 
 enum TwitterPostDataType: String {
@@ -129,9 +131,22 @@ class TwitterAPI {
         })
     }
     
-    // Helper function for accessing credentials semantically
+    // MARK: - User data
+    
     func currentAccount(success: @escaping ((TwitterUser) -> Void), failure: @escaping ((Error) -> Void)) {
-        fetch(twitterFetchDataPath: TwitterFetchDataType.userData.rawValue, success: { (task: URLSessionDataTask, response: Any?) -> Void in
+        fetch(twitterFetchDataPath: TwitterFetchDataType.userData.rawValue, success: { (task: URLSessionDataTask, response: Any?) in
+            if let userDictionary = response as? NSDictionary {
+                success(TwitterUser(dictionary: userDictionary))
+            } else {
+                failure(TwitterAPIError.unableToParseResponse)
+            }
+        }, failure: { (task: URLSessionDataTask?, error: Error) -> Void in
+            failure(error)
+        })
+    }
+    
+    func profileData(withID userID: String, success: @escaping ((TwitterUser) -> Void), failure: @escaping ((Error) -> Void)) {
+        fetch(twitterFetchDataPath: "\(TwitterFetchDataType.anyUserData.rawValue)?user_id=\(userID)", success: { (task: URLSessionDataTask, response: Any?) in
             if let userDictionary = response as? NSDictionary {
                 success(TwitterUser(dictionary: userDictionary))
             } else {
@@ -143,7 +158,7 @@ class TwitterAPI {
     }
 
     
-    // MARK: - User-contextual Information
+    // MARK: - Timelines
     
     func homeTimeline(success: @escaping (([TwitterTweet]) -> Void), failure: @escaping ((Error) -> Void)) {
         fetch(twitterFetchDataPath: TwitterFetchDataType.homeTimeline.rawValue, success: { (task: URLSessionDataTask, response: Any?) in
@@ -159,6 +174,18 @@ class TwitterAPI {
     
     func mentionsTimeline(success: @escaping (([TwitterTweet]) -> Void), failure: @escaping ((Error) -> Void)) {
         fetch(twitterFetchDataPath: TwitterFetchDataType.mentionsTimeline.rawValue, success: { (task: URLSessionDataTask, response: Any?) in
+            if let tweetsDictionary = response as? [NSDictionary] {
+                success(TwitterTweet.tweetsWithArray(dictionaries: tweetsDictionary))
+            } else {
+                failure(TwitterAPIError.unableToParseResponse)
+            }
+        }, failure: { (task: URLSessionDataTask?, error: Error) in
+            failure(error)
+        })
+    }
+    
+    func userTimeline(withID userID: String, success: @escaping (([TwitterTweet]) -> Void), failure: @escaping ((Error) -> Void)) {
+        fetch(twitterFetchDataPath: "\(TwitterFetchDataType.userTimeline.rawValue)?user_id=\(userID)", success: { (task: URLSessionDataTask, response: Any?) in
             if let tweetsDictionary = response as? [NSDictionary] {
                 success(TwitterTweet.tweetsWithArray(dictionaries: tweetsDictionary))
             } else {

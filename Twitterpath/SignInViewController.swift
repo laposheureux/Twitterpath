@@ -19,9 +19,14 @@ class SignInViewController: UIViewController {
     
     @IBAction func loginPressed(_ sender: Any) {
         SVProgressHUD.show()
-        TwitterAPI.sharedInstance.login(success: { [weak self] in
+        TwitterAPI.sharedInstance.login(success: {
             SVProgressHUD.showSuccess(withStatus: "Logged in!")
-            self?.performSegue(withIdentifier: "loginSegue", sender: nil)
+            let appDelegate = UIApplication.shared.delegate as? AppDelegate
+            if let appDelegate = appDelegate {
+                appDelegate.showHamburger()
+            } else {
+                SVProgressHUD.showError(withStatus: "Application is in an unexpected state, please relaunch.")
+            }
         }, failure: { (error: Error) in
             SVProgressHUD.showError(withStatus: error.localizedDescription)
         })

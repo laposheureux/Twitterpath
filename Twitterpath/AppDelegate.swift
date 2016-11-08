@@ -15,17 +15,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
+    func showHamburger() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let hamburgerViewController = storyboard.instantiateViewController(withIdentifier:  "hamburgerViewController") as! HamburgerViewController
+        let menuViewController = storyboard.instantiateViewController(withIdentifier: "menuViewController") as! MenuViewController
+        
+        menuViewController.hamburgerViewController = hamburgerViewController
+        hamburgerViewController.menuViewController = menuViewController
+        window?.rootViewController = hamburgerViewController
+    }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Ensure that BDBO was able to store the auth token in the keychain AND that there is a stored current user.
         if TwitterAPI.isAuthorized && TwitterUser.currentUser != nil {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let hamburgerViewController = storyboard.instantiateViewController(withIdentifier:  "hamburgerViewController") as! HamburgerViewController
-            let menuViewController = storyboard.instantiateViewController(withIdentifier: "menuViewController") as! MenuViewController
-            
-            menuViewController.hamburgerViewController = hamburgerViewController
-            hamburgerViewController.menuViewController = menuViewController
-            window?.rootViewController = hamburgerViewController
+            showHamburger()
         }
         
         NotificationCenter.default.addObserver(forName: TwitterAPI.logoutNotification, object: nil, queue: OperationQueue.main, using: { (notification: Notification) in
